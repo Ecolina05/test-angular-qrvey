@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-
+import { FavoriteCountriesService } from 'src/app/services/favorite-countries.service';
 @Component({
   selector: 'app-country',
   templateUrl: './country.component.html',
@@ -7,21 +7,20 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CountryComponent implements OnInit {
 
-  @Input() country: any;
+  @Input() country;
   @Input() id: string;
-  modalToShow: any;
 
-  constructor() { }
+  constructor(private FavoriteCountriesService: FavoriteCountriesService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   openDetails(): void {
-    // const modalElement = document.getElementById(this.id);
-    // const modal = document.getElementsByClassName('modal');
-    // for (let i = 0; i < modal.length; i++) {
-    //   modal[i].classList.add('is-active');
-    // }
+    document.getElementById(this.id).classList.add('is-active');
+  }
+
+  addToFavorite(event: Event): void {
+    event.stopPropagation();
+    this.FavoriteCountriesService.setCountry(this.country);
   }
 
 }

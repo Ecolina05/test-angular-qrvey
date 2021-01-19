@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,15 +6,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit {
 
-  filters;
+  filters: any;
 
-  constructor() {
+  constructor() { }
 
-  }
-
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void { }
 
   getFilters(filters): void {
     this.filters = filters;

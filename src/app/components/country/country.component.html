@@ -1,6 +1,7 @@
-<!-- <app-country-details [country]="country"></app-country-details> -->
+<app-country-details [id]="id" [country]="country"></app-country-details>
 
 <div class="country is-flex is-align-items-center my-2" title="Details" (click)="openDetails()">
     <img [src]="country?.flag" [alt]="country?.name" width="40">
     <span class="ml-3">{{country?.name}}</span>
+    <i class="favorite-button fas fa-star is-small ml-2" title="Add to favorites" (click)="addToFavorite($event)"></i>
 </div>

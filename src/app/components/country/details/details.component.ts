@@ -13,14 +13,10 @@ export class DetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.country);
   }
 
   closeDetails(): void {
-    const modal = document.getElementsByClassName('modal');
-    for (let i = 0; i < modal.length; i++) {
-      modal[i].classList.remove('is-active');
-    }
+    document.getElementById(this.id).classList.remove('is-active');
   }
 
 }

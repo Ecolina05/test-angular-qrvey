@@ -1,7 +1,24 @@
-<div class="modal">
+<div [id]="id" class="modal">
     <div class="modal-background"></div>
     <div class="modal-content">
-        {{country?.name}}
+        <h3 class="is-size-4 blue-dark mb-5"><b>{{country?.name}}</b></h3>
+        <p class="mb-1"><b>Region:</b> {{country?.region}}</p>
+        <p class="mb-1"><b>Population:</b> {{country?.population | number}}M</p>
+        <p class="mb-1"><b>Capital:</b> {{country?.capital}}</p>
+        <p class="mb-1">
+            <b class="mr-1">Currency:</b>
+            <span *ngFor="let currency of country?.currencies">{{currency?.name + ', '}}</span>
+        </p>
+        <p class="mb-1">
+            <b class="mr-1">Language:</b>
+            <span *ngFor="let language of country?.languages">{{language?.name + ', '}}</span>
+        </p>
+        <p class="mb-1">
+            <b class="mr-1">Border Countries:</b>
+            <span *ngFor="let border of country?.borders">{{border + ', '}}</span>
+        </p>
+        <p class="mb-1"><b>Flag:</b></p>
+        <img [src]="country?.flag" [alt]="country?.name" width="180" class="flag">
     </div>
     <button class="modal-close is-large" aria-label="close" (click)="closeDetails()"></button>
 </div>

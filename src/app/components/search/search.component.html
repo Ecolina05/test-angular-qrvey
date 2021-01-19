@@ -1,9 +1,9 @@
-<div [formGroup]="filterForm" class="filter is-flex mt-4">
+<div [formGroup]="filterForm" class="filters is-flex mt-4">
     <input formControlName="text" class="input border-none" type="text" placeholder="Search country"
         (keyup.enter)="onSearch()">
     <div class="is-flex">
         <div class="select">
-            <select formControlName="filterSelected" class="is-size-6">
+            <select formControlName="filterSelected" class="is-size-6" (change)="setCurrentFilter()">
                 <option *ngFor="let filter of filters" [value]="filter.value">{{filter.label}}</option>
             </select>
         </div>

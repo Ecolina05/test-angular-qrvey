@@ -12,8 +12,7 @@ export class UtilsService {
    * @param word 
    */
   firstLetterMayus(word: string) {
-    if (word) {
+    if (word)
       return word.replace(/\b\w/g, l => l.toUpperCase());
-    }
   }
 }

@@ -14,7 +14,7 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
   allCountriesSubs: Subscription;
   countriesFilteredSubs: Subscription;
   allCountries: any[];
-  countriesGrouped: any = {};
+  countriesGrouped = {};
   continents: string[] = [];
 
   constructor(private countriesService: CountriesService, public utilServices: UtilsService) { }
@@ -30,10 +30,8 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnDestroy(): void {
-    if (this.allCountriesSubs)
-      this.allCountriesSubs.unsubscribe();
-    if (this.allCountriesSubs)
-      this.countriesFilteredSubs.unsubscribe();
+    this.allCountriesSubs.unsubscribe();
+    this.countriesFilteredSubs.unsubscribe();
   }
 
   getCountries(): void {
@@ -63,27 +61,34 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   get filtersToSearch(): string {
-    switch (this.filters.value) {
+    switch (this.filters.filterSelected) {
       case 'all':
         return 'all'
-      case 'region':
-        return `region/${this.filters.filterSelected}`;
       case 'fav':
         return 'favorites'
+      default:
+        return `region/${this.filters.filterSelected}`;
     }
-
   }
 
   applyFilters(): void {
     if (this.filters.filterSelected === 'all') {
-      this.getCountries();
-    } else {
+      if (!this.filters.text) {
+        this.getCountries();
+      } else {
+        this.continents.forEach(continent => {
+          this.countriesGrouped[continent] = this.countriesGrouped[continent].filter(country => country.name.toLowerCase().includes(this.filters.text.toLowerCase()));
+        });
+      }
+    } else if (!this.filters.text) {
       this.countriesFilteredSubs = this.countriesService.getCountries(this.filtersToSearch).subscribe(
         results => {
           this.countriesGrouped = {};
           this.countriesGrouped[this.filters.filterSelected] = results
         }
       );
+    } else {
+      this.countriesGrouped[localStorage.getItem('currentFilter')] = this.countriesGrouped[localStorage.getItem('currentFilter')].filter(country => country.name.toLowerCase().includes(this.filters.text));
     }
   }
 }
