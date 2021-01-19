@@ -1,0 +1,6 @@
+<!-- <app-country-details [country]="country"></app-country-details> -->
+
+<div class="country is-flex is-align-items-center my-2" title="Details" (click)="openDetails()">
+    <img [src]="country?.flag" [alt]="country?.name" width="40">
+    <span class="ml-3">{{country?.name}}</span>
+</div>

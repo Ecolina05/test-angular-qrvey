@@ -1,0 +1,14 @@
+<div [formGroup]="filterForm" class="filter is-flex mt-4">
+    <input formControlName="text" class="input border-none" type="text" placeholder="Search country"
+        (keyup.enter)="onSearch()">
+    <div class="is-flex">
+        <div class="select">
+            <select formControlName="filterSelected" class="is-size-6">
+                <option *ngFor="let filter of filters" [value]="filter.value">{{filter.label}}</option>
+            </select>
+        </div>
+        <button class="button is-info" (click)="onSearch()">
+            <i class="fas fa-search"></i>
+        </button>
+    </div>
+</div>

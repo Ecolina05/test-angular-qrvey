@@ -1,0 +1,8 @@
+<div class="columns is-desktop px-6">
+    <div *ngFor="let continent of countriesGrouped | keyvalue" class="column mt-6 mr-2">
+        <h3 class="is-size-5 blue-dark mb-5"><b>{{utilServices.firstLetterMayus(continent.key)}}</b></h3>
+        <div *ngFor="let country of continent.value; index as i">
+            <app-country [country]="country" [id]="continent.key.toLowerCase() +'_country_' + i"></app-country>
+        </div>
+    </div>
+</div>
