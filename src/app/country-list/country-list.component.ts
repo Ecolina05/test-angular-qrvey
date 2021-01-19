@@ -74,6 +74,7 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
   applyFilters(): void {
     if (this.filters.filterSelected === 'all') {
       if (!this.filters.text) {
+        this.countriesGrouped = {};
         this.getCountries();
       } else {
         this.continents.forEach(continent => {
@@ -91,4 +92,16 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
       this.countriesGrouped[localStorage.getItem('currentFilter')] = this.countriesGrouped[localStorage.getItem('currentFilter')].filter(country => country.name.toLowerCase().includes(this.filters.text));
     }
   }
+
+  // get results(): boolean {
+  //   let results: boolean;
+
+  //   if (localStorage.getItem('currentFilter') !== 'all') {
+  //     results = this.countriesGrouped[localStorage.getItem('currentFilter')] ? true : false;
+  //   }
+  //   this.continents.forEach(continent => {
+  //     results = this.countriesGrouped[continent]?.length > 0 ? true : false;
+  //   });
+  //   return results;
+  // }
 }

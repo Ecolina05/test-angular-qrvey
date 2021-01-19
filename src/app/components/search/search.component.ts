@@ -22,6 +22,7 @@ export class SearchComponent implements OnInit {
     window.addEventListener('getContinents', () => this.getContinents());
     this.onInitForm();
     this.onInitFilters();
+    this.setCurrentFilter();
   }
 
   onInitForm(): void {
