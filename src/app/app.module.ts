@@ -9,7 +9,7 @@ import { CountryListComponent } from './country-list/country-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { DetailsComponent } from './components/country/details/details.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { TooltipModule } from 'ng2-tooltip-directive';
 @NgModule({
   declarations: [
     AppComponent,
@@ -17,13 +17,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HeaderComponent,
     SearchComponent,
     CountryListComponent,
-    DetailsComponent
+    DetailsComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

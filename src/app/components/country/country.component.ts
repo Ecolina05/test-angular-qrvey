@@ -10,9 +10,11 @@ export class CountryComponent implements OnInit {
   @Input() country;
   @Input() id: string;
 
-  constructor(private FavoriteCountriesService: FavoriteCountriesService) { }
+  constructor(public favoriteCountriesService: FavoriteCountriesService) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.favoriteCountriesService.getFavoriteCountries();
+  }
 
   openDetails(): void {
     document.getElementById(this.id).classList.add('is-active');
@@ -20,7 +22,15 @@ export class CountryComponent implements OnInit {
 
   addToFavorite(event: Event): void {
     event.stopPropagation();
-    this.FavoriteCountriesService.setCountry(this.country);
+    this.favoriteCountriesService.setCountry(this.country);
   }
 
+  removeFavorite(event: Event): void {
+    event.stopPropagation();
+    this.favoriteCountriesService.removeCountry(this.country);
+  }
+
+  get isFavorite(): boolean {
+    return this.favoriteCountriesService.isFavorite(this.country);
+  }
 }

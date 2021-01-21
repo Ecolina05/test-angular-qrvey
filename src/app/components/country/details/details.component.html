@@ -15,7 +15,7 @@
         </p>
         <p class="mb-1">
             <b class="mr-1">Border Countries:</b>
-            <span *ngFor="let border of country?.borders">{{border + ', '}}</span>
+            <span *ngFor="let border of country?.borders">{{getCountryName(border) || ''}}</span>
         </p>
         <p class="mb-1"><b>Flag:</b></p>
         <img [src]="country?.flag" [alt]="country?.name" width="180" class="flag">

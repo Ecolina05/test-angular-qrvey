@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, OnChanges, Input } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { CountriesService } from '../services/countries.service';
+import { FavoriteCountriesService } from '../services/favorite-countries.service';
 import { UtilsService } from '../services/utils.service';
 
 @Component({
@@ -16,10 +17,15 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
   allCountries: any[];
   countriesGrouped = {};
   continents: string[] = [];
+  favoriteCountries: any[] = [];
 
-  constructor(private countriesService: CountriesService, public utilServices: UtilsService) { }
+  constructor(
+    private countriesService: CountriesService,
+    public utilServices: UtilsService,
+    public favoriteCountriesService: FavoriteCountriesService) { }
 
   ngOnInit(): void {
+    window.addEventListener('getFavoriteCountries', () => this.getFavoriteCountries());
     this.getCountries();
   }
 
@@ -61,13 +67,15 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   get filtersToSearch(): string {
-    switch (this.filters.filterSelected) {
-      case 'all':
-        return 'all'
-      case 'fav':
-        return 'favorites'
-      default:
-        return `region/${this.filters.filterSelected}`;
+    if (this.filters) {
+      switch (this.filters.filterSelected) {
+        case 'all':
+          return 'all'
+        case 'fav':
+          return 'favorites'
+        default:
+          return `region/${this.filters.filterSelected}`;
+      }
     }
   }
 
@@ -82,26 +90,22 @@ export class CountryListComponent implements OnInit, OnDestroy, OnChanges {
         });
       }
     } else if (!this.filters.text) {
-      this.countriesFilteredSubs = this.countriesService.getCountries(this.filtersToSearch).subscribe(
-        results => {
-          this.countriesGrouped = {};
-          this.countriesGrouped[this.filters.filterSelected] = results
-        }
-      );
+      if (this.filtersToSearch != 'favorites') {
+        this.countriesFilteredSubs = this.countriesService.getCountries(this.filtersToSearch).subscribe(
+          results => {
+            this.countriesGrouped = {};
+            this.countriesGrouped[this.filters.filterSelected] = results
+          }
+        );
+      } else {
+        this.getFavoriteCountries();
+      }
     } else {
       this.countriesGrouped[localStorage.getItem('currentFilter')] = this.countriesGrouped[localStorage.getItem('currentFilter')].filter(country => country.name.toLowerCase().includes(this.filters.text));
     }
   }
 
-  // get results(): boolean {
-  //   let results: boolean;
-
-  //   if (localStorage.getItem('currentFilter') !== 'all') {
-  //     results = this.countriesGrouped[localStorage.getItem('currentFilter')] ? true : false;
-  //   }
-  //   this.continents.forEach(continent => {
-  //     results = this.countriesGrouped[continent]?.length > 0 ? true : false;
-  //   });
-  //   return results;
-  // }
+  getFavoriteCountries(): void {
+    this.favoriteCountries = this.favoriteCountriesService.getFavoriteCountries();
+  }
 }

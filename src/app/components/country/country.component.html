@@ -1,7 +1,10 @@
 <app-country-details [id]="id" [country]="country"></app-country-details>
 
-<div class="country is-flex is-align-items-center my-2" title="Details" (click)="openDetails()">
+<div class="country is-flex is-align-items-center my-2" (click)="openDetails()">
     <img [src]="country?.flag" [alt]="country?.name" width="40">
-    <span class="ml-3">{{country?.name}}</span>
-    <i class="favorite-button fas fa-star is-small ml-2" title="Add to favorites" (click)="addToFavorite($event)"></i>
+    <span class="ml-3" tooltip="Details" placement="bottom">{{country?.name}}</span>
+    <i *ngIf="!isFavorite" class="favorite-button fas fa-star is-small ml-2" tooltip="Add to favorites"
+        placement="right" (click)="addToFavorite($event)"></i>
+    <i *ngIf="isFavorite" class="isFavorite fas fa-star is-small ml-2" tooltip="Remove to favorites" placement="right"
+        (click)="removeFavorite($event)"></i>
 </div>
