@@ -31,7 +31,7 @@ export class FavoriteCountriesService {
       this.favoriteCountries.splice(index, 1);
       localStorage.setItem('favoriteCountries', JSON.stringify(this.favoriteCountries));
       window.dispatchEvent(new Event('getFavoriteCountries'));
-      this.toastServices.openToast('Country removed to favorites.', 'is-success');
+      this.toastServices.openToast('Country removed from favorites.', 'is-success');
     }
   }
 
